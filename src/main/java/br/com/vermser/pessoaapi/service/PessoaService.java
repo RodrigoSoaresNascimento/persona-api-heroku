@@ -2,7 +2,7 @@ package br.com.vermser.pessoaapi.service;
 
 import br.com.vermser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.vermser.pessoaapi.dto.PessoaDTO;
-import br.com.vermser.pessoaapi.entity.Pessoa;
+import br.com.vermser.pessoaapi.entity.PessoaEntity;
 import br.com.vermser.pessoaapi.exceptions.PessoaNaoCadastradaException;
 import br.com.vermser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,26 +27,26 @@ public class PessoaService {
     @Autowired
     private EmailService emailService;
 
-    public Pessoa converterPessoaDTO (PessoaCreateDTO pessoaDTO) {
-        return objectMapper.convertValue(pessoaDTO, Pessoa.class);
+    public PessoaEntity converterPessoaDTO (PessoaCreateDTO pessoaDTO) {
+        return objectMapper.convertValue(pessoaDTO, PessoaEntity.class);
     }
 
-    public PessoaDTO converterPessoa (Pessoa pessoa){
+    public PessoaDTO converterPessoa (PessoaEntity pessoa){
         return objectMapper.convertValue(pessoa, PessoaDTO.class);
     }
 
     public PessoaDTO create (PessoaCreateDTO pessoa) {
 
-        Pessoa pessoaEntity = converterPessoaDTO(pessoa);
-        pessoaEntity = pessoaRepository.create(pessoaEntity);
+        PessoaEntity pessoaEntity = converterPessoaDTO(pessoa);
+        pessoaEntity = pessoaRepository.save(pessoaEntity);
         PessoaDTO pessoaDTO = converterPessoa(pessoaEntity);
         emailService.novoCadastroSimpleMessage(pessoaDTO);
-        log.info("Pessoa criada");
+        log.info("PessoaEntity criada");
         return pessoaDTO;
     }
 
     public List<PessoaDTO> list (){
-        return pessoaRepository.list()
+        return pessoaRepository.findAll()
                 .stream()
                 .map(this::converterPessoa)
                 .collect(Collectors.toList());
@@ -55,37 +55,35 @@ public class PessoaService {
     public PessoaDTO update (Integer id
     , PessoaCreateDTO pessoaAtualizar) throws Exception {
 
-        Pessoa pessoaRecuperada = findById(id);
+        PessoaEntity pessoaRecuperada = findById(id);
         pessoaRecuperada.setIdPessoa(id);
         pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
         pessoaRecuperada.setNome(pessoaAtualizar.getNome());
         pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
         pessoaRecuperada.setEmail(pessoaAtualizar.getEmail());
-        log.info("Pessoa atualizada");
-        PessoaDTO pessoaDTO = converterPessoa(pessoaRecuperada);
-        emailService.updateSimpleMessage(pessoaDTO);
-        return pessoaDTO;
+        log.info("PessoaEntity atualizada");
+
+        emailService.updateSimpleMessage(converterPessoa(pessoaRecuperada));
+        return converterPessoa(pessoaRepository.save(pessoaRecuperada));
     }
 
     public void delete (Integer id) throws Exception {
-        Pessoa pessoaRecuperada = findById(id);
-        log.info("Pessoa removida!");
-        pessoaRepository.list().remove(pessoaRecuperada);
+        PessoaEntity pessoaRecuperada = findById(id);
+        log.info("PessoaEntity removida!");
+        pessoaRepository.delete(pessoaRecuperada);
         emailService.deleteSimpleMessage(converterPessoa(pessoaRecuperada));
     }
 
     public List<PessoaDTO> listByName(String nome) {
-        return pessoaRepository.list().stream()
+        return pessoaRepository.findAll().stream()
                 .filter(pessoa -> pessoa.getNome().toUpperCase().contains(nome.toUpperCase()))
                 .map(this::converterPessoa)
                 .collect(Collectors.toList());
     }
 
-    public Pessoa findById (Integer id) throws PessoaNaoCadastradaException {
-        Pessoa pessoaRecuperada = pessoaRepository.list().stream()
-                .filter(pessoa -> pessoa.getIdPessoa().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new PessoaNaoCadastradaException("Pessoa não econtrada"));
+    public PessoaEntity findById (Integer id) throws PessoaNaoCadastradaException {
+        PessoaEntity pessoaRecuperada = pessoaRepository.findById(id)
+                .orElseThrow(() -> new PessoaNaoCadastradaException("PessoaEntity não econtrada"));
         return pessoaRecuperada;
     }
 

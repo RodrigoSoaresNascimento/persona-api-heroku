@@ -45,7 +45,7 @@ public class PessoaController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "Retorna a lista de pessoas"),
-                    @ApiResponse(responseCode = "400", description = "Pessoa não encontrado"),
+                    @ApiResponse(responseCode = "400", description = "PessoaEntity não encontrado"),
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
@@ -58,7 +58,7 @@ public class PessoaController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "pessoa atualizada"),
-                    @ApiResponse(responseCode = "400", description = "Pessoa não encontrado"),
+                    @ApiResponse(responseCode = "400", description = "PessoaEntity não encontrado"),
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
@@ -72,7 +72,7 @@ public class PessoaController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "pessoa removida"),
-                    @ApiResponse(responseCode = "400", description = "Pessoa não encontradoo"),
+                    @ApiResponse(responseCode = "400", description = "PessoaEntity não encontradoo"),
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
@@ -86,7 +86,7 @@ public class PessoaController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "pessoas encontradas"),
-                    @ApiResponse(responseCode = "400", description = "Pessoa não encontrado"),
+                    @ApiResponse(responseCode = "400", description = "PessoaEntity não encontrado"),
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )

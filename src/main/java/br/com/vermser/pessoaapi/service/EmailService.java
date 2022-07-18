@@ -2,7 +2,6 @@ package br.com.vermser.pessoaapi.service;
 
 import br.com.vermser.pessoaapi.dto.EnderecoDTO;
 import br.com.vermser.pessoaapi.dto.PessoaDTO;
-import br.com.vermser.pessoaapi.entity.Pessoa;
 import br.com.vermser.pessoaapi.enums.TipoDeMensagem;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

@@ -20,7 +20,7 @@ public class PessoaCreateDTO {
     @Size(min = 11, max = 11)
     private String cpf;
 
-    @Schema(description = "Nome da Pessoa")
+    @Schema(description = "Nome da PessoaEntity")
     @NotBlank(message = "Name is mandatory")
     @NotNull
     private String nome;

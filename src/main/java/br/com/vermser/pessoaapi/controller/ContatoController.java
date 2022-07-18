@@ -46,7 +46,7 @@ public class ContatoController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "contatos listados"),
-                    @ApiResponse(responseCode = "400", description = "Contato não encontrado"),
+                    @ApiResponse(responseCode = "400", description = "ContatoEntity não encontrado"),
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
@@ -59,7 +59,7 @@ public class ContatoController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "contato atualizada"),
-                    @ApiResponse(responseCode = "400", description = "Contato não encontrado"),
+                    @ApiResponse(responseCode = "400", description = "ContatoEntity não encontrado"),
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
@@ -73,7 +73,7 @@ public class ContatoController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "contato deletada"),
-                    @ApiResponse(responseCode = "400", description = "Contato não encontrado"),
+                    @ApiResponse(responseCode = "400", description = "ContatoEntity não encontrado"),
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
@@ -87,7 +87,7 @@ public class ContatoController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "busca bem sucessida"),
-                    @ApiResponse(responseCode = "400", description = "Contato não encontrado"),
+                    @ApiResponse(responseCode = "400", description = "ContatoEntity não encontrado"),
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
